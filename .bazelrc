@@ -1,0 +1,5 @@
+try-import %workspace%/envoy-mobile/envoy/.bazelrc
+try-import %workspace%/envoy-mobile/.bazelrc
+
+# settings that need to be overridden bc they assume directory structure
+build --workspace_status_command=envoy-mobile/envoy/bazel/get_workspace_status
