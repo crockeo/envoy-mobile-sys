@@ -29,11 +29,11 @@ fn main() -> Result<()> {
         println!("cargo:rerun-if-changed={}", required_file);
     }
 
-    println!("cargo:rustc-link-lib=envoy-mobile.so");
+    println!("cargo:rustc-link-lib=envoy_mobile.so");
     println!("cargo:rustc-link-search=./bazel-bin");
 
-    build_bindings()?;
     build_envoy_mobile()?;
+    build_bindings()?;
 
     Ok(())
 }

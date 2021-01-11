@@ -5,7 +5,7 @@ version = "0.1.0"
 authors = ["Cerek Hillen <cerekh@gmail.com>"]
 edition = "2018"
 description = "A syscrate for envoy-mobile"
-license-file = "LICENSE"
+license = "Apache-2.0"
 homepage = "https://github.com/crockeo/envoy-mobile-sys"
 repository = "https://github.com/crockeo/envoy-mobile-sys"
 
