@@ -20,12 +20,12 @@ fn main() -> Result<()> {
 
 fn build_envoy_mobile(out_dir: &PathBuf) -> Result<()> {
     let mut builder = process::Command::new("bazel")
-        .stdout(process::Stdio::inherit())
         .arg(format!(
             "--output_user_root={}",
             out_dir.join("bazel-out").to_str().unwrap()
         ))
         .arg("build")
+        .arg("--experimental_convenience_symlinks=ignore")
         .arg("//:envoy_mobile.so")
         .spawn()?;
 
