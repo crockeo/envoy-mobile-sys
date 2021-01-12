@@ -1,6 +1,6 @@
 # envoy-mobile-sys
 
-A **heavily unstable** syscrate for [envoy-mobile]((https://github.com/envoyproxy/envoy-mobile).
+A **heavily unstable** syscrate for [envoy-mobile](https://github.com/envoyproxy/envoy-mobile).
 I cannot emphasize enough that I do _not_ recommend you use this crate until it becomes more
 mature. Some reasons why:
 
