@@ -1,17 +1,22 @@
 extern crate bindgen;
 
 use std::env;
+use std::fs::remove_file;
 use std::io;
 use std::path::PathBuf;
 use std::process;
 
 fn main() -> Result<()> {
+    let out_dir = PathBuf::from(env::var("OUT_DIR").expect("requires $OUT_DIR env var"));
+
     println!("cargo:rerun-if-changed=envoy-mobile/library/common/main_interface.h");
     println!("cargo:rerun-if-changed=envoy-mobile/library/common/types/c_types.h");
-    println!("cargo:rustc-link-lib=envoy_mobile.so");
-    println!("cargo:rustc-link-search=./bazel-bin");
+    println!("cargo:rustc-link-lib=envoy_mobile");
+    println!(
+        "cargo:rustc-link-search={}/bazel-bin",
+        out_dir.to_str().unwrap()
+    );
 
-    let out_dir = PathBuf::from(env::var("OUT_DIR").expect("requires $OUT_DIR env var"));
     build_envoy_mobile(&out_dir)?;
     build_bindings(&out_dir)?;
 
@@ -20,14 +25,20 @@ fn main() -> Result<()> {
 
 fn build_envoy_mobile(out_dir: &PathBuf) -> Result<()> {
     let mut builder = process::Command::new("bazel")
-        .arg(format!(
-            "--output_user_root={}",
-            out_dir.join("bazel-out").to_str().unwrap()
-        ))
         .arg("build")
-        .arg("--experimental_convenience_symlinks=ignore")
-        .arg("//:envoy_mobile.so")
+        .arg(format!(
+            "--symlink_prefix={}/bazel-",
+            out_dir.to_str().unwrap()
+        ))
+        .arg("//:libenvoy_mobile.so")
         .spawn()?;
+
+    // bazel still creates a bazel-out no matter what you tell it to do. so we just remove it after
+    // the fact :)
+    //
+    // note that we don't care if it succeeds in removing bazel-out, because Cargo will just fail
+    // if it exists
+    let _ = remove_file("bazel-out");
 
     let exit_status = builder.wait()?;
     if !exit_status.success() {
