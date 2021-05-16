@@ -9,6 +9,7 @@ license = "Apache-2.0"
 homepage = "https://github.com/crockeo/envoy-mobile-sys"
 repository = "https://github.com/crockeo/envoy-mobile-sys"
 links = "envoy_mobile"
+exclude = ["./envoy-mobile"]
 
 [build-dependencies]
 bindgen = "0.56.0"
