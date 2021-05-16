@@ -1,7 +1,7 @@
 [package]
 name = "envoy-mobile-sys"
 build = "build.rs"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["Cerek Hillen <cerekh@gmail.com>"]
 edition = "2018"
 description = "A syscrate for envoy-mobile"
